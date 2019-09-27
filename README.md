@@ -33,7 +33,7 @@ Latest version: ![](https://jitpack.io/v/pzienowicz/androidx-auto-scroll-view-pa
 - use below code
 
 ``` xml
-<pl.pzienowicz.AutoScrollViewPager
+<pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager
 	android:id="@+id/view_pager"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content" />
