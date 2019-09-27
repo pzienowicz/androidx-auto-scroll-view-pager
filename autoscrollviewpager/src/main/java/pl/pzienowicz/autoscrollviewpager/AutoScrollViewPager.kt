@@ -12,40 +12,25 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     constructor(context: Context): this(context, null)
 
-    val DEFAULT_INTERVAL = 1500
+    private val defaultInterval = 1500
+    private val scrollWhat = 0
 
-    val LEFT = 0
-    val RIGHT = 1
+    enum class Direction        { LEFT, RIGHT }
+    enum class SlideBorderMode  { NONE, CYCLE, TO_PARENT }
 
-    /** do nothing when sliding at the last or first item  */
-    val SLIDE_BORDER_MODE_NONE = 0
-    /** cycle when sliding at the last or first item  */
-    val SLIDE_BORDER_MODE_CYCLE = 1
-    /** deliver event to parent when sliding at the last or first item  */
-    val SLIDE_BORDER_MODE_TO_PARENT = 2
-
-    /** auto scroll time in milliseconds, default is [.DEFAULT_INTERVAL]  */
-    private var interval = DEFAULT_INTERVAL.toLong()
-    /** auto scroll direction, default is [.RIGHT]  */
-    private var direction = RIGHT
-    /** whether automatic cycle when auto scroll reaching the last or first item, default is true  */
+    private var interval = defaultInterval.toLong()
+    private var direction = Direction.RIGHT
     private var isCycle = true
-    /** whether stop auto scroll when touching, default is true  */
     private var stopScrollWhenTouch = true
-    /** how to process when sliding at the last or first item, default is [.SLIDE_BORDER_MODE_NONE]  */
-    private var slideBorderMode = SLIDE_BORDER_MODE_NONE
-    /** whether animating when auto scroll at the last or first item  */
+    private var slideBorderMode = SlideBorderMode.NONE
     private var isBorderAnimation = true
-
-    private var myHandler: Handler
 
     private var isAutoScroll = false
     private var isStopByTouch = false
     private var touchX = 0f
     private var downX = 0f
     private var scroller: CustomDurationScroller? = null
-
-    val SCROLL_WHAT = 0
+    private var myHandler: Handler
 
     init {
         myHandler = MyHandler()
@@ -57,9 +42,6 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
         sendScrollMessage(interval)
     }
 
-    /**
-     * @param delayTimeInMills first scroll delay time
-     */
     fun startAutoScroll(delayTimeInMills: Int) {
         isAutoScroll = true
         sendScrollMessage(delayTimeInMills.toLong())
@@ -67,7 +49,7 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     fun stopAutoScroll() {
         isAutoScroll = false
-        myHandler.removeMessages(SCROLL_WHAT)
+        myHandler.removeMessages(scrollWhat)
     }
 
     /**
@@ -79,8 +61,8 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     private fun sendScrollMessage(delayTimeInMills: Long) {
         /** remove messages before, keeps one message is running at most  */
-        myHandler.removeMessages(SCROLL_WHAT)
-        myHandler.sendEmptyMessageDelayed(SCROLL_WHAT, delayTimeInMills)
+        myHandler.removeMessages(scrollWhat)
+        myHandler.sendEmptyMessageDelayed(scrollWhat, delayTimeInMills)
     }
 
     /**
@@ -108,7 +90,7 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
         var currentItem = currentItem
         val totalCount = adapter!!.count
 
-        val nextItem = if (direction == LEFT) --currentItem else ++currentItem
+        val nextItem = if (direction == Direction.LEFT) --currentItem else ++currentItem
 
         if (nextItem < 0) {
             if (isCycle) {
@@ -124,11 +106,9 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
     }
 
     /**
-     *
      * if stopScrollWhenTouch is true
      *  * if event is down, stop auto scroll.
      *  * if event is up, start auto scroll again.
-     *
      */
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         if (stopScrollWhenTouch) {
@@ -140,7 +120,7 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
             }
         }
 
-        if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT || slideBorderMode == SLIDE_BORDER_MODE_CYCLE) {
+        if (slideBorderMode == SlideBorderMode.TO_PARENT || slideBorderMode == SlideBorderMode.CYCLE) {
             touchX = ev.x
             if (ev.action == MotionEvent.ACTION_DOWN) {
                 downX = touchX
@@ -155,7 +135,7 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
              * one.
              */
             if (currentItem == 0 && downX <= touchX || currentItem == pageCount - 1 && downX >= touchX) {
-                if (slideBorderMode == SLIDE_BORDER_MODE_TO_PARENT) {
+                if (slideBorderMode == SlideBorderMode.TO_PARENT) {
                     parent.requestDisallowInterceptTouchEvent(false)
                 } else {
                     if (pageCount > 1) {
@@ -175,7 +155,7 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
 
-            if(msg.what == SCROLL_WHAT) {
+            if(msg.what == scrollWhat) {
                 scrollOnce()
                 sendScrollMessage(interval)
             }
@@ -184,8 +164,6 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * get auto scroll time in milliseconds, default is [.DEFAULT_INTERVAL]
-     *
-     * @return the interval
      */
     fun getInterval(): Long {
         return interval
@@ -193,8 +171,6 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * set auto scroll time in milliseconds, default is [.DEFAULT_INTERVAL]
-     *
-     * @param interval the interval to set
      */
     fun setInterval(interval: Long) {
         this.interval = interval
@@ -202,19 +178,15 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * get auto scroll direction
-     *
-     * @return [.LEFT] or [.RIGHT], default is [.RIGHT]
      */
-    fun getDirection(): Int {
-        return if (direction == LEFT) LEFT else RIGHT
+    fun getDirection(): Direction {
+        return direction
     }
 
     /**
      * set auto scroll direction
-     *
-     * @param direction [.LEFT] or [.RIGHT], default is [.RIGHT]
      */
-    fun setDirection(direction: Int) {
+    fun setDirection(direction: Direction) {
         this.direction = direction
     }
 
@@ -229,8 +201,6 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * set whether automatic cycle when auto scroll reaching the last or first item, default is true
-     *
-     * @param isCycle the isCycle to set
      */
     fun setCycle(isCycle: Boolean) {
         this.isCycle = isCycle
@@ -238,8 +208,6 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * whether stop auto scroll when touching, default is true
-     *
-     * @return the stopScrollWhenTouch
      */
     fun isStopScrollWhenTouch(): Boolean {
         return stopScrollWhenTouch
@@ -247,8 +215,6 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * set whether stop auto scroll when touching, default is true
-     *
-     * @param stopScrollWhenTouch
      */
     fun setStopScrollWhenTouch(stopScrollWhenTouch: Boolean) {
         this.stopScrollWhenTouch = stopScrollWhenTouch
@@ -256,28 +222,20 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * get how to process when sliding at the last or first item
-     *
-     * @return the slideBorderMode [.SLIDE_BORDER_MODE_NONE], [.SLIDE_BORDER_MODE_TO_PARENT],
-     * [.SLIDE_BORDER_MODE_CYCLE], default is [.SLIDE_BORDER_MODE_NONE]
      */
-    fun getSlideBorderMode(): Int {
+    fun getSlideBorderMode(): SlideBorderMode {
         return slideBorderMode
     }
 
     /**
      * set how to process when sliding at the last or first item
-     *
-     * @param slideBorderMode [.SLIDE_BORDER_MODE_NONE], [.SLIDE_BORDER_MODE_TO_PARENT],
-     * [.SLIDE_BORDER_MODE_CYCLE], default is [.SLIDE_BORDER_MODE_NONE]
      */
-    fun setSlideBorderMode(slideBorderMode: Int) {
+    fun setSlideBorderMode(slideBorderMode: SlideBorderMode) {
         this.slideBorderMode = slideBorderMode
     }
 
     /**
      * whether animating when auto scroll at the last or first item, default is true
-     *
-     * @return
      */
     fun isBorderAnimation(): Boolean {
         return isBorderAnimation
@@ -285,8 +243,6 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
 
     /**
      * set whether animating when auto scroll at the last or first item, default is true
-     *
-     * @param isBorderAnimation
      */
     fun setBorderAnimation(isBorderAnimation: Boolean) {
         this.isBorderAnimation = isBorderAnimation

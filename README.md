@@ -48,11 +48,11 @@ instead of
 - `stopAutoScroll()` stop auto scroll.
 
 ## Setting
-- `setInterval(long)` set auto scroll time in milliseconds, default is `DEFAULT_INTERVAL`.  
-- `setDirection(int)` set auto scroll direction, default is `RIGHT`.  
+- `setInterval(long)` set auto scroll time in milliseconds, default is `1500`.  
+- `setDirection(Direction)` set auto scroll direction, default is `Direction.RIGHT`.  
 - `setCycle(boolean)` set whether automatic cycle when auto scroll reaching the last or first item, default is true. 
 - `setScrollDurationFactor(double)` set the factor by which the duration of sliding animation will change.  
-- `setSlideBorderMode(int)` set how to process when sliding at the last or first item, default is `SLIDE_BORDER_MODE_NONE`.
+- `setSlideBorderMode(SlideBorderMode)` set how to process when sliding at the last or first item, default is `SlideBorderMode.NONE`.
 - `setStopScrollWhenTouch(boolean)` set whether stop auto scroll when touching, default is true.  
 - `setBorderAnimation(boolean)` set whether animating when auto scroll at the last or first item, default is true.  
 - You cannot combine with [ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) if `setCycle(true)`. 
