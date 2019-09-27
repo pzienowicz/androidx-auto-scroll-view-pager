@@ -1,3 +1,7 @@
+[![](https://jitpack.io/v/pzienowicz/androidx-auto-scroll-view-pager.svg)](https://jitpack.io/#pzienowicz/androidx-auto-scroll-view-pager)
+[![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) 
+![GitHub issues](https://img.shields.io/github/issues/pzienowicz/Trialer.svg?style=flat-square)
+
 Androidx Auto Scroll ViewPager
 ==============================
 * ViewPager which can auto scrolling, cycling, decelerating.  
@@ -29,7 +33,7 @@ Latest version: ![](https://jitpack.io/v/pzienowicz/androidx-auto-scroll-view-pa
 - use below code
 
 ``` xml
-<pl.pzienowicz.AutoScrollViewPager
+<pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager
 	android:id="@+id/view_pager"
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content" />
@@ -47,7 +51,7 @@ instead of
 - `startAutoScroll(int)` start auto scroll delayed.
 - `stopAutoScroll()` stop auto scroll.
 
-## Setting
+## Settings
 - `setInterval(long)` set auto scroll time in milliseconds, default is `1500`.  
 - `setDirection(Direction)` set auto scroll direction, default is `Direction.RIGHT`.  
 - `setCycle(boolean)` set whether automatic cycle when auto scroll reaching the last or first item, default is true. 
