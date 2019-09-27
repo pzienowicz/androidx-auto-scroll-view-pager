@@ -39,3 +39,8 @@ instead of
 - `setStopScrollWhenTouch(boolean)` set whether stop auto scroll when touching, default is true.  
 - `setBorderAnimation(boolean)` set whether animating when auto scroll at the last or first item, default is true.  
 - You cannot combine with [ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) if `setCycle(true)`. 
+
+# Example
+Please check example app contained in this repository.
+This is how it looks like:
+![Example](https://github.com/pzienowicz/androidx-auto-scroll-view-pager/blob/master/app/files/ezgif-3-f33a4fdf55f4.gif)
