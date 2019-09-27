@@ -51,7 +51,7 @@ instead of
 - `startAutoScroll(int)` start auto scroll delayed.
 - `stopAutoScroll()` stop auto scroll.
 
-## Setting
+## Settings
 - `setInterval(long)` set auto scroll time in milliseconds, default is `DEFAULT_INTERVAL`.  
 - `setDirection(int)` set auto scroll direction, default is `RIGHT`.  
 - `setCycle(boolean)` set whether automatic cycle when auto scroll reaching the last or first item, default is true. 
