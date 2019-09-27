@@ -5,8 +5,9 @@
 Androidx Auto Scroll ViewPager
 ==============================
 * ViewPager which can auto scrolling, cycling, decelerating.  
-* ViewPager which can be slided normal in parent ViewPager.
+* ViewPager which can be slided manually in parent ViewPager.
 * ViewPager which is compatible with AndroidX library.
+* ViewPager which is written in Kotlin and be supported for a long time.
 
 # Thanks
 Many thanks to [Trinea](https://github.com/Trinea) because this library is the newest, kotlin version of his [library](https://github.com/Trinea/android-auto-scroll-view-pager). We support AndroidX library, so if you have problem when migrating to AndroidX, this version should work like a charm. 
