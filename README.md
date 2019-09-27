@@ -1,3 +1,7 @@
+[![](https://jitpack.io/v/pzienowicz/androidx-auto-scroll-view-pager.svg)](https://jitpack.io/#pzienowicz/androidx-auto-scroll-view-pager)
+[![API](https://img.shields.io/badge/API-14%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=14) 
+![GitHub issues](https://img.shields.io/github/issues/pzienowicz/Trialer.svg?style=flat-square)
+
 Androidx Auto Scroll ViewPager
 ==============================
 * ViewPager which can auto scrolling, cycling, decelerating.  
