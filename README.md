@@ -7,6 +7,23 @@ Androidx Auto Scroll ViewPager
 # Thanks
 Many thanks to [Trinea](https://github.com/Trinea) because this library is the newest, kotlin version of his [library](https://github.com/Trinea/android-auto-scroll-view-pager). We support AndroidX library, so if you have problem when migrating to AndroidX, this version should work like a charm. 
 
+Installation
+------------
+
+### Gradle
+Add this to your root build.gradle file under repositories:
+```
+allprojects {
+	repositories {
+		maven { url "https://jitpack.io" }
+	}
+}
+```
+Add this to your app level build.gradle as dependency:
+
+    implementation 'com.github.pzienowicz:androidx-auto-scroll-view-pager:{latest.version}'
+Latest version: ![](https://jitpack.io/v/pzienowicz/androidx-auto-scroll-view-pager.svg)
+
 ## Usage
 - include this library
 - use below code
