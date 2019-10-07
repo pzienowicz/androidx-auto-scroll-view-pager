@@ -1,6 +1,7 @@
 [![](https://jitpack.io/v/pzienowicz/androidx-auto-scroll-view-pager.svg)](https://jitpack.io/#pzienowicz/androidx-auto-scroll-view-pager)
 [![API](https://img.shields.io/badge/API-19%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=19) 
 ![GitHub issues](https://img.shields.io/github/issues/pzienowicz/Trialer.svg?style=flat-square)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-androidx--auto--scroll--view--pager-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/7907)
 
 Androidx Auto Scroll ViewPager
 ==============================
