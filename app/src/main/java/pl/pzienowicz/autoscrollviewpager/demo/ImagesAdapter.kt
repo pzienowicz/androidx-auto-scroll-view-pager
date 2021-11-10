@@ -22,7 +22,7 @@ class ImagesAdapter(private val context: Context, private var images: ArrayList<
         val imageView = ImageView(context)
         imageView.scaleType = ImageView.ScaleType.CENTER_CROP
 
-        Picasso.with(context).load(images[position]).into(imageView)
+        Picasso.get().load(images[position]).into(imageView)
 
         container.addView(imageView)
 
