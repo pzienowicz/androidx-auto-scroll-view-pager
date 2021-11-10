@@ -66,6 +66,13 @@ instead of
 - `setBorderAnimation(boolean)` set whether animating when auto scroll at the last or first item, default is `true`.  
 - You cannot combine with [ViewPagerIndicator](https://github.com/JakeWharton/Android-ViewPagerIndicator) if `setCycle(true)`. 
 
+## Proguard
+```
+-keep class pl.pzienowicz.** { *; }
+-keepclassmembers pl.pzienowicz.** { *; }
+-dontwarn pl.pzienowicz.**
+```
+
 # Example
 Please check example app contained in this repository.
 This is how it looks like:
