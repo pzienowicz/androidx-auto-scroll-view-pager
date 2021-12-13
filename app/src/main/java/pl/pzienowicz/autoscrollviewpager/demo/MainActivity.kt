@@ -2,27 +2,31 @@ package pl.pzienowicz.autoscrollviewpager.demo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.activity_main.*
 import pl.pzienowicz.autoscrollviewpager.AutoScrollViewPager
+import pl.pzienowicz.autoscrollviewpager.demo.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-        val images = ArrayList<String>()
-        images.add("https://wallpaperaccess.com/full/51607.jpg")
-        images.add("https://wallpaperaccess.com/full/51616.jpg")
-        images.add("https://wallpaperaccess.com/full/51621.jpg")
-        images.add("https://wallpaperaccess.com/full/11810.jpg")
+        val images = listOf(
+            "https://wallpaperaccess.com/full/51607.jpg",
+            "https://wallpaperaccess.com/full/51616.jpg",
+            "https://wallpaperaccess.com/full/51621.jpg",
+            "https://wallpaperaccess.com/full/11810.jpg"
+        )
 
-        viewPager.adapter = ImagesAdapter(this, images)
-        viewPager.setInterval(2000)
-        viewPager.setDirection(AutoScrollViewPager.Direction.RIGHT)
-        viewPager.setCycle(true)
-        viewPager.setBorderAnimation(true)
-        viewPager.setSlideBorderMode(AutoScrollViewPager.SlideBorderMode.TO_PARENT)
-        viewPager.startAutoScroll()
+        binding.viewPager.adapter = ImagesAdapter(this, images)
+        binding.viewPager.setInterval(2000)
+        binding.viewPager.setDirection(AutoScrollViewPager.Direction.RIGHT)
+        binding.viewPager.setCycle(true)
+        binding.viewPager.setBorderAnimation(true)
+        binding.viewPager.setSlideBorderMode(AutoScrollViewPager.SlideBorderMode.TO_PARENT)
+        binding.viewPager.startAutoScroll()
     }
 }

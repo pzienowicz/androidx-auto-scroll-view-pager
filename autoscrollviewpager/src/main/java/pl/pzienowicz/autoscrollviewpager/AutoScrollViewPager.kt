@@ -2,6 +2,7 @@ package pl.pzienowicz.autoscrollviewpager
 
 import android.content.Context
 import android.os.Handler
+import android.os.Looper
 import android.os.Message
 import android.util.AttributeSet
 import android.view.MotionEvent
@@ -150,7 +151,7 @@ class AutoScrollViewPager(context: Context, attrs: AttributeSet?) : ViewPager(co
         return super.onTouchEvent(ev)
     }
 
-    private inner class MyHandler : Handler() {
+    private inner class MyHandler : Handler(Looper.getMainLooper()) {
 
         override fun handleMessage(msg: Message) {
             super.handleMessage(msg)
