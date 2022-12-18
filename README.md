@@ -69,7 +69,7 @@ instead of
 ## Proguard
 ```
 -keep class pl.pzienowicz.** { *; }
--keepclassmembers pl.pzienowicz.** { *; }
+-keepclassmembers class pl.pzienowicz.** { *; }
 -dontwarn pl.pzienowicz.**
 ```
 
